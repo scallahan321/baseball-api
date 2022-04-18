@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, send_file
 from dotenv import load_dotenv
 from pybaseball import statcast
 
@@ -14,3 +14,14 @@ def hello_world():
     # test['value'] = data['pitch_type'].iloc[0]
 
     return "testing gcp to heroku api connection"
+
+
+@app.route("/get_csv_attachment")
+def get_csv_attachment():
+    csv_path = "./static/sample1.csv"
+    return send_file(csv_path, as_attachment=True, attachment_filename="sample1.csv")
+
+@app.route("/get_csv")
+def get_csv():
+    csv_path = "./static/sample1.csv"
+    return send_file(csv_path, as_attachment=False)
