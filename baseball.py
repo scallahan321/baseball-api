@@ -19,9 +19,9 @@ def hello_world():
 
 @app.route("/get_data")
 def get_csv_attachment():
-    data = statcast('2022-04-19')
-    data.to_csv("static/new_data.csv")
-    return send_file("static/new_data.csv", as_attachment=False)
+    data = statcast('2022-04-18')
+    data.to_csv("static/new_data.csv", index=False)
+    return send_file("./static/new_data.csv", as_attachment=False)
 
 @app.route("/get_csv")
 def get_csv():
