@@ -4,6 +4,7 @@ from pybaseball import statcast
 
 load_dotenv()
 
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -16,10 +17,11 @@ def hello_world():
     return "testing gcp to heroku api connection"
 
 
-@app.route("/get_csv_attachment")
+@app.route("/get_data")
 def get_csv_attachment():
-    csv_path = "./static/sample1.csv"
-    return send_file(csv_path, as_attachment=True, attachment_filename="sample1.csv")
+    data = statcast('2022-04-19')
+    data.to_csv("static/new_data.csv")
+    return send_file("static/new_data.csv", as_attachment=False)
 
 @app.route("/get_csv")
 def get_csv():
