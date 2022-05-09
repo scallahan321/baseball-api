@@ -20,9 +20,9 @@ def hello_world():
 @app.route("/get_data")
 def get_csv_attachment():
     today = date.today()
-    yesterday = today - timedelta(days = 1)
+    two_days_ago = today - timedelta(days = 2)
     #data = statcast_with_spin('2022-04-18')
-    data = statcast_with_spin(str(yesterday))
+    data = statcast_with_spin(str(two_days_ago))
     data.to_csv("static/new_data.csv", index=False)
     return send_file("./static/new_data.csv", as_attachment=False)
 
