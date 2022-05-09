@@ -1,9 +1,12 @@
 from flask import Flask, request, send_file
 from dotenv import load_dotenv
-#from pybaseball import statcast
 from spin import statcast_with_spin
+from datetime import date
+from datetime import timedelta
 
 load_dotenv()
+
+
 
 
 app = Flask(__name__)
@@ -16,11 +19,10 @@ def hello_world():
 
 @app.route("/get_data")
 def get_csv_attachment():
-    data = statcast_with_spin('2022-04-18')
+    today = date.today()
+    yesterday = today - timedelta(days = 1)
+    #data = statcast_with_spin('2022-04-18')
+    data = statcast_with_spin(str(yesterday))
     data.to_csv("static/new_data.csv", index=False)
     return send_file("./static/new_data.csv", as_attachment=False)
 
-# @app.route("/get_csv")
-# def get_csv():
-#     csv_path = "./static/sample1.csv"
-#     return send_file(csv_path, as_attachment=False)
