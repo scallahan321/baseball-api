@@ -16,13 +16,13 @@ def hello_world():
 
     return "Hello World"
 
-
 @app.route("/get_data")
 def get_csv_attachment():
-    today = date.today()
-    two_days_ago = today - timedelta(days = 2)
-    #data = statcast_with_spin('2022-04-18')
-    data = statcast_with_spin(str(two_days_ago))
+    year = request.args.get('year')
+    month = request.args.get('month')
+    day = request.args.get('day')
+    date_string = year + '-' + month + '-' + day
+    data = statcast_with_spin(date_string)
     data.to_csv("static/new_data.csv", index=False)
     return send_file("./static/new_data.csv", as_attachment=False)
 
